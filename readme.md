@@ -1,8 +1,11 @@
 # Financial Health Prediction Challenge
 
 **Platform:** Zindi (DataOrg)
-**Task:** Multi-class classification — predict the Financial Health Index (FHI) of small and medium enterprises (SMEs) across Southern Africa
+
+**Task:** Multi-class classification - predict the Financial Health Index (FHI) of small and medium enterprises (SMEs) across Southern Africa
+
 **Primary metric:** Macro F1-score
+
 **Secondary metric:** Log-loss
 
 ---
@@ -17,7 +20,7 @@ Access to formal financial services remains a critical barrier for SMEs in devel
 | Medium | Moderate financial stability and access | 29.8% |
 | High | Strong financial health, broad product access | 4.9% |
 
-The severe class imbalance — particularly the 4.9% representation of the High class — is the central modeling challenge.
+The severe class imbalance - particularly the 4.9% representation of the High class - is the central modeling challenge.
 
 ---
 
@@ -28,7 +31,7 @@ The severe class imbalance — particularly the 4.9% representation of the High 
 | `Train.csv` | 9,618 | Labeled SME survey responses |
 | `Test.csv` | 2,405 | Unlabeled records for submission |
 | `SampleSubmission.csv` | 2,405 | Required submission format |
-| `VariableDefinitions.csv` | — | Feature descriptions |
+| `VariableDefinitions.csv` | - | Feature descriptions |
 
 **Features (38 raw)** span four domains:
 - **Demographics:** owner age, sex, country
@@ -58,7 +61,7 @@ Financial Health Prediction Challenge/
 
 ## Notebooks
 
-### `Financial_Health_Prediction.ipynb` — Baseline Pipeline
+### `Financial_Health_Prediction.ipynb` - Baseline Pipeline
 
 End-to-end notebook covering:
 1. Data loading and text normalization
@@ -74,7 +77,7 @@ End-to-end notebook covering:
 
 ---
 
-### `FHI_Optimization_v2.ipynb` — Expert Optimization Pipeline
+### `FHI_Optimization_v2.ipynb` - Expert Optimization Pipeline
 
 **Target: Macro F1 >= 0.91**
 
@@ -87,8 +90,8 @@ Builds on the baseline with a structured multi-technique strategy:
 - **Stress indicators:** `stress_score` (shutdown worry + cash flow + sourcing problems)
 - **Credit vulnerability:** `credit_access_vulnerability = (1 - formal_access) * (0.5 + informal_access)`
 - **Profitability margin:** `operational_profitability_margin` clipped to [-1, 1]
-- **Heuristic label:** `fhi_rule_bin` — domain-knowledge rule approximating FHI from access + stress + profit thresholds
-- **Country-contextual features:** per-country z-score and percentile rank of financial columns (fit on train, applied to test — no leakage)
+- **Heuristic label:** `fhi_rule_bin` - domain-knowledge rule approximating FHI from access + stress + profit thresholds
+- **Country-contextual features:** per-country z-score and percentile rank of financial columns (fit on train, applied to test - no leakage)
 - **Cross-interaction features:** `stress_x_expense_ratio`, `access_x_log_turnover`
 
 #### Model Strategy
@@ -140,7 +143,7 @@ Core packages:
 
 **Ordinal encoding vs one-hot:** Survey responses follow natural hierarchies (e.g., financial product access). Encoding these as ordered integers rather than dummy variables preserves the information content and reduces dimensionality.
 
-**`fhi_rule_bin`:** A domain-knowledge heuristic that approximates the FHI label from first principles. Treated as a model feature, not an intermediate artifact — the exclusion filter explicitly preserves it.
+**`fhi_rule_bin`:** A domain-knowledge heuristic that approximates the FHI label from first principles. Treated as a model feature, not an intermediate artifact - the exclusion filter explicitly preserves it.
 
 ---
 
